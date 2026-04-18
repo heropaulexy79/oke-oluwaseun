@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #0A192F;
+  --color-primary-light: #112240;
+  --color-accent: #C5A059;
+  --color-accent-light: #D4AF37;
+  --color-background: #F8FAFC;
+  --color-foreground: #0F172A;
+  --color-surface: #FFFFFF;
+  --color-muted: #64748B;
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --background: #F8FAFC;
+  --foreground: #0F172A;
+}
+
+/* Base styles for smooth scrolling and clean look */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+}
+
+/* Subtle selection color */
+::selection {
+  background-color: #0A192F;
+  color: #fff;
+}
