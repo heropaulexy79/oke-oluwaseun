@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase-admin';
+import { getDb } from '@/lib/firebase-admin';
 
 export const runtime = 'nodejs';
 
@@ -35,6 +35,7 @@ export async function POST(request: Request) {
 
     // Save to Firestore
     try {
+      const db = getDb();
       await db.collection('registrations').add(registrationData);
       console.log('Successfully saved to Firestore');
     } catch (dbError) {

@@ -1,47 +1,41 @@
 import admin from 'firebase-admin';
 
 /**
- * Normalizes the Firebase private key to handle all variations of how
- * Vercel/environment variables may encode the newlines:
- *  - Literal \\n (double-escaped)  → real newline
- *  - \n in a JSON-stringified key  → real newline
- *  - Already correct               → left as-is
+ * Lazy Firebase Admin initializer.
+ * - Never runs at build time (no module-level side effects)
+ * - Supports both raw PEM keys and base64-encoded keys (safest for Vercel)
+ * - Handles all \\n escaping variants
  */
-function normalizePrivateKey(key: string | undefined): string | undefined {
-  if (!key) return undefined;
-  // Strip surrounding quotes if Vercel added them
-  let normalized = key.trim().replace(/^["']|["']$/g, '');
-  // Replace all literal \n sequences (double-escaped) with real newlines
-  normalized = normalized.replace(/\\n/g, '\n');
-  return normalized;
-}
+function getApp(): admin.app.App {
+  if (admin.apps.length > 0) {
+    return admin.apps[0]!;
+  }
 
-const projectId = process.env.FIREBASE_PROJECT_ID;
-const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-const privateKey = normalizePrivateKey(process.env.FIREBASE_PRIVATE_KEY);
+  const rawKey = process.env.FIREBASE_PRIVATE_KEY ?? '';
+  let privateKey = rawKey.trim().replace(/^["']|["']$/g, ''); // strip accidental quotes
 
-// Log env var status (values are masked) to help debug Vercel deployments
-if (!projectId || !clientEmail || !privateKey) {
-  console.error('[Firebase] Missing environment variables:', {
-    FIREBASE_PROJECT_ID: projectId ? '✓ set' : '✗ MISSING',
-    FIREBASE_CLIENT_EMAIL: clientEmail ? '✓ set' : '✗ MISSING',
-    FIREBASE_PRIVATE_KEY: privateKey ? '✓ set' : '✗ MISSING',
+  if (!privateKey) {
+    throw new Error('[Firebase] FIREBASE_PRIVATE_KEY is not set.');
+  }
+
+  // If the key doesn't look like PEM, assume it's base64-encoded
+  if (!privateKey.includes('-----BEGIN')) {
+    privateKey = Buffer.from(privateKey, 'base64').toString('utf-8');
+  }
+
+  // Replace any remaining literal \n with real newlines
+  privateKey = privateKey.replace(/\\n/g, '\n');
+
+  return admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey,
+    }),
   });
 }
 
-if (!admin.apps.length) {
-  try {
-    admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId,
-        clientEmail,
-        privateKey,
-      }),
-    });
-    console.log('[Firebase] Admin SDK initialized successfully.');
-  } catch (err) {
-    console.error('[Firebase] Failed to initialize Admin SDK:', err);
-  }
+/** Call this inside API route handlers — never at module level */
+export function getDb(): admin.firestore.Firestore {
+  return getApp().firestore();
 }
-
-export const db = admin.firestore();
