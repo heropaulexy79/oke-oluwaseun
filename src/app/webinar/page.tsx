@@ -89,7 +89,7 @@ export default function WebinarPage() {
               <AnimatedSection delay={0.2} className="relative">
                 <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/5 group">
                   <Image
-                    src="/identity crisis2.jpg"
+                    src="/new webinar flyer.jpg"
                     alt="Identity Crisis Webinar Flier"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
