@@ -1,15 +1,25 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = 'Oke Oluwaseun <no-reply@okeoluwaseun.com>';
+function createTransporter() {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,      // e.g. yourname@gmail.com
+      pass: process.env.GMAIL_APP_PASSWORD, // 16-char App Password from Google
+    },
+  });
+}
+
+const FROM = `Oke Oluwaseun <${process.env.GMAIL_USER}>`;
 
 // ─── Webinar Confirmation ──────────────────────────────────────────────────
 
 export async function sendWebinarConfirmation(to: string, name: string) {
-  return resend.emails.send({
+  const transporter = createTransporter();
+  return transporter.sendMail({
     from: FROM,
     to,
-    subject: '✅ You\'re Registered — Identity Crisis Webinar',
+    subject: "✅ You're Registered — Identity Crisis Webinar",
     html: webinarEmailHtml(name),
   });
 }
@@ -42,7 +52,7 @@ function webinarEmailHtml(name: string): string {
               <p style="margin:0 0 8px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">You're In</p>
               <h2 style="margin:0 0 24px;font-size:26px;color:#ffffff;font-weight:400;">Hi ${name}, your spot is confirmed 🎉</h2>
               <p style="margin:0 0 32px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;">
-                Thank you for registering for the <strong style="color:#ffffff;">Identity Crisis Webinar</strong>. 
+                Thank you for registering for the <strong style="color:#ffffff;">Identity Crisis Webinar</strong>.
                 We can't wait to see you there. This is going to be a life-changing session.
               </p>
 
@@ -52,31 +62,25 @@ function webinarEmailHtml(name: string): string {
                   <td style="padding:28px 32px;">
                     <p style="margin:0 0 20px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">Event Details</p>
                     <table cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="padding:8px 0;">
-                          <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📅 Date</p>
-                          <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">April 26th, 2026</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:8px 0;">
-                          <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">🕖 Time</p>
-                          <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">7:00 PM WAT</p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:8px 0;">
-                          <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📍 Platform</p>
-                          <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">Google Meet (link via WhatsApp group)</p>
-                        </td>
-                      </tr>
+                      <tr><td style="padding:8px 0;">
+                        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📅 Date</p>
+                        <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">April 26th, 2026</p>
+                      </td></tr>
+                      <tr><td style="padding:8px 0;">
+                        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">🕖 Time</p>
+                        <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">7:00 PM WAT</p>
+                      </td></tr>
+                      <tr><td style="padding:8px 0;">
+                        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📍 Platform</p>
+                        <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">Google Meet (link via WhatsApp group)</p>
+                      </td></tr>
                     </table>
                   </td>
                 </tr>
               </table>
 
               <p style="margin:0 0 32px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;">
-                The meeting link will be shared in the <strong style="color:#ffffff;">WhatsApp community</strong> closer to the event. 
+                The meeting link will be shared in the <strong style="color:#ffffff;">WhatsApp community</strong> closer to the event.
                 Make sure you've joined — check the link sent to you after registering.
               </p>
 
@@ -119,7 +123,8 @@ function webinarEmailHtml(name: string): string {
 // ─── General / Maximize Nation Confirmation ────────────────────────────────
 
 export async function sendGeneralConfirmation(to: string, name: string) {
-  return resend.emails.send({
+  const transporter = createTransporter();
+  return transporter.sendMail({
     from: FROM,
     to,
     subject: '✅ Registration Confirmed — Maximize Nation',
@@ -155,7 +160,7 @@ function generalEmailHtml(name: string): string {
               <p style="margin:0 0 8px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">Welcome to the Movement</p>
               <h2 style="margin:0 0 24px;font-size:26px;color:#ffffff;font-weight:400;">Hi ${name}, you're officially registered 🎉</h2>
               <p style="margin:0 0 32px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;">
-                Thank you for taking this step. You have joined a growing community of value-driven leaders 
+                Thank you for taking this step. You have joined a growing community of value-driven leaders
                 committed to identity, purpose, and global impact.
               </p>
 
