@@ -5,6 +5,9 @@ import AnimatedSection from '@/components/ui/AnimatedSection';
 import HeroSlider from '@/components/layout/HeroSlider';
 import { getAllPosts } from '@/lib/cms';
 
+// Always fetch live Substack posts on every request — no caching
+export const revalidate = 0;
+
 export default async function Home() {
   const posts = await getAllPosts();
   const recentPosts = posts.slice(0, 3);

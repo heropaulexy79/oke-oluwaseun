@@ -35,10 +35,15 @@ function extractSlugFromUrl(url: string): string {
   return parts[parts.length - 1].split('?')[0].replace(/\/$/, '');
 }
 
+export const revalidate = 0; // always fetch fresh Substack data on every request
+
 export async function getAllPosts(): Promise<Post[]> {
   try {
     // 1. Fetch RSS Feed (Recent 20 posts with full data)
-    const feed = await parser.parseURL(RSS_URL);
+    // Use fetch so Next.js ISR can revalidate the cached response
+    const rssRes = await fetch(RSS_URL, { cache: 'no-store' });
+    const rssText = await rssRes.text();
+    const feed = await parser.parseString(rssText);
     const feedPosts: Post[] = (feed?.items || []).map(item => {
       let imageUrl: string | undefined = undefined;
       if (item.enclosure && item.enclosure.url) {
@@ -63,7 +68,7 @@ export async function getAllPosts(): Promise<Post[]> {
     });
 
     // 2. Fetch Sitemap (Full list of all publications)
-    const sitemapRes = await fetch(SITEMAP_URL);
+    const sitemapRes = await fetch(SITEMAP_URL, { cache: 'no-store' });
     const sitemapXml = await sitemapRes.text();
     
     // Extract /p/ links and dates
