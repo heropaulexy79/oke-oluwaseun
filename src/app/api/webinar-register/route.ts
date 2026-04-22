@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/firebase-admin';
+import { sendWebinarConfirmation } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
@@ -39,6 +40,14 @@ export async function POST(request: Request) {
     } catch (dbError) {
       console.error('Firestore Error:', dbError);
       // We still try the legacy webhook as a backup if configured
+    }
+
+    // Send confirmation email (non-blocking — don't fail the request if email fails)
+    try {
+      await sendWebinarConfirmation(email, name);
+      console.log('Confirmation email sent to:', email);
+    } catch (emailError) {
+      console.error('Email send failed (non-fatal):', emailError);
     }
 
     // Backup: Send to Google Sheets Webhook if configured

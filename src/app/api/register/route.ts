@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/firebase-admin';
+import { sendGeneralConfirmation } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
@@ -40,6 +41,14 @@ export async function POST(request: Request) {
       console.log('Successfully saved to Firestore');
     } catch (dbError) {
       console.error('Firestore Error:', dbError);
+    }
+
+    // Send confirmation email (non-blocking — don't fail the request if email fails)
+    try {
+      await sendGeneralConfirmation(email, name);
+      console.log('Confirmation email sent to:', email);
+    } catch (emailError) {
+      console.error('Email send failed (non-fatal):', emailError);
     }
 
     return NextResponse.json(
