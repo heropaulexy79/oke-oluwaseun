@@ -84,6 +84,47 @@ export default function AboutPage() {
          </div>
       </section>
       
+      {/* Maximize Nation Feature */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-primary relative overflow-hidden">
+            {/* Background design elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+              <div className="p-10 md:p-16 flex flex-col justify-center">
+                <AnimatedSection>
+                  <h2 className="text-sm uppercase tracking-[0.3em] text-accent font-bold mb-4">The Global Movement</h2>
+                  <h3 className="text-3xl md:text-4xl font-serif text-white mb-6 leading-tight">
+                    Beyond Consultations: <br />
+                    Discover <span className="text-accent italic">Maximize Nation</span>.
+                  </h3>
+                  <p className="text-white/70 text-lg mb-8 max-w-lg">
+                    A vibrant ecosystem designed to foster intentional growth, leadership excellence, and collaborative impact. Join a collective of high-performing individuals committed to global transformation.
+                  </p>
+                  <Link 
+                    href="/maximize-nation" 
+                    className="inline-flex items-center text-accent group font-medium"
+                  >
+                    Enter The Ecosystem 
+                    <ArrowRight size={18} className="ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  </Link>
+                </AnimatedSection>
+              </div>
+              <div className="hidden lg:block relative min-h-[400px]">
+                <img 
+                  src="/Maximize Nation banner.jpg" 
+                  alt="Maximize Nation Community" 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-primary/20 hover:bg-transparent transition-colors duration-700" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Call to action */}
       <section className="py-24 text-center">
         <AnimatedSection>

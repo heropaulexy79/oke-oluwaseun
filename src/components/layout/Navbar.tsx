@@ -31,6 +31,7 @@ export default function Navbar() {
   // Logic to determine if we should be transparent or solid
   // On Homepage and major sections, we want transparency on top because of the Navy headers.
   const isTransparent = !scrolled && (
+    pathname === "/maximize-nation" || 
     pathname === "/" || 
     pathname === "/insights" || 
     pathname.startsWith("/insights/") || 

@@ -81,6 +81,53 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Maximize Nation Teaser */}
+      <section className="py-24 bg-primary relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <Image 
+            src="/maximize-conference-2025.png" 
+            alt="Maximize Nation Background" 
+            fill 
+            className="object-cover"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <AnimatedSection>
+              <h2 className="text-sm uppercase tracking-[0.3em] text-accent font-bold mb-4">The Movement</h2>
+              <h3 className="text-4xl md:text-6xl font-serif text-white mb-8 leading-tight">
+                Maximize <span className="text-accent italic">Nation</span>
+              </h3>
+              <p className="text-lg text-white/70 mb-10 leading-relaxed max-w-xl">
+                More than a community, it is an architecture for global impact. Join thousands of 
+                value-driven leaders dedicated to transformation across various expressions.
+              </p>
+              <div className="flex flex-wrap gap-6">
+                <Link href="/maximize-nation" className="bg-accent text-primary px-8 py-4 font-bold uppercase tracking-widest hover:bg-white transition-all">
+                  Join The Movement
+                </Link>
+                <Link href="/maximize-nation#registration" className="border border-white/20 text-white px-8 py-4 font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
+                  Register for 2026
+                </Link>
+              </div>
+            </AnimatedSection>
+            
+            <div className="grid grid-cols-2 gap-4 h-[400px]">
+              <AnimatedSection delay={0.2} className="relative rounded-2xl overflow-hidden mt-12">
+                <Image src="/maximize-conference-2025.png" alt="Maximize Conference" fill className="object-cover" />
+                <div className="absolute inset-0 bg-primary/20" />
+                <div className="absolute bottom-4 left-4 text-white text-[10px] uppercase tracking-widest font-bold">Conference</div>
+              </AnimatedSection>
+              <AnimatedSection delay={0.4} className="relative rounded-2xl overflow-hidden mb-12">
+                <Image src="/maximize-campus-tour-2025.png" alt="Campus Tour" fill className="object-cover" />
+                <div className="absolute inset-0 bg-primary/20" />
+                <div className="absolute bottom-4 left-4 text-white text-[10px] uppercase tracking-widest font-bold">Campus Tour</div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Insights Section */}
       <section className="py-24 bg-surface border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
