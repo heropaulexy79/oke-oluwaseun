@@ -20,7 +20,7 @@ export default function MaximizeNationPage() {
           />
         </div>
 
-        <div className="container mx-auto px-4 relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
               <div className="inline-block px-4 py-1.5 mb-6 border border-accent/30 rounded-full bg-accent/5 backdrop-blur-sm">
@@ -53,7 +53,7 @@ export default function MaximizeNationPage() {
 
       {/* About Section */}
       <section className="py-24 bg-surface" id="expressions">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <AnimatedSection>
               <h2 className="text-sm uppercase tracking-[0.3em] text-accent font-bold mb-6">Our Vision</h2>
@@ -97,7 +97,7 @@ export default function MaximizeNationPage() {
 
       {/* Maximize Conference 2025 Section */}
       <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2 order-2 lg:order-1 relative">
               <AnimatedSection className="relative aspect-video lg:aspect-square">
@@ -135,7 +135,7 @@ export default function MaximizeNationPage() {
 
       {/* Maximize Campus Tour 2025 Section */}
       <section className="py-24 bg-surface">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2">
               <AnimatedSection>
@@ -190,7 +190,7 @@ export default function MaximizeNationPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <AnimatedSection>
               <h2 className="text-sm uppercase tracking-[0.4em] text-accent font-bold mb-6">Upcoming Event</h2>
