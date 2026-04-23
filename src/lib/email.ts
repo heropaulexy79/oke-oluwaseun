@@ -1,27 +1,31 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
-function createTransporter() {
-  return nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.GMAIL_USER,      // e.g. yourname@gmail.com
-      pass: process.env.GMAIL_APP_PASSWORD, // 16-char App Password from Google
-    },
-  });
-}
-
-const FROM = `Oke Oluwaseun <${process.env.GMAIL_USER}>`;
+const resend = new Resend(process.env.RESEND_API_KEY);
+const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+const FROM_NAME = 'Oke Oluwaseun';
+const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
 
 // ─── Webinar Confirmation ──────────────────────────────────────────────────
 
 export async function sendWebinarConfirmation(to: string, name: string) {
-  const transporter = createTransporter();
-  return transporter.sendMail({
-    from: FROM,
-    to,
-    subject: "✅ You're Registered — Identity Crisis Webinar",
-    html: webinarEmailHtml(name),
-  });
+  try {
+    const { data, error } = await resend.emails.send({
+      from: FROM,
+      to,
+      subject: "✅ You're Registered — Identity Crisis Webinar",
+      html: webinarEmailHtml(name),
+    });
+
+    if (error) {
+      console.error('Resend Error (Webinar):', error);
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Email send failed:', err);
+    throw err;
+  }
 }
 
 function webinarEmailHtml(name: string): string {
@@ -132,18 +136,6 @@ function webinarEmailHtml(name: string): string {
 </html>`;
 }
 
-// ─── General / Maximize Nation Confirmation ────────────────────────────────
-
-export async function sendGeneralConfirmation(to: string, name: string) {
-  const transporter = createTransporter();
-  return transporter.sendMail({
-    from: FROM,
-    to,
-    subject: '✅ Registration Confirmed — Maximize Nation',
-    html: generalEmailHtml(name),
-  });
-}
-
 function generalEmailHtml(name: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -236,4 +228,28 @@ function generalEmailHtml(name: string): string {
   </table>
 </body>
 </html>`;
+}
+
+
+// ─── General / Maximize Nation Confirmation ────────────────────────────────
+
+export async function sendGeneralConfirmation(to: string, name: string) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: FROM,
+      to,
+      subject: '✅ Registration Confirmed — Maximize Nation',
+      html: generalEmailHtml(name),
+    });
+
+    if (error) {
+      console.error('Resend Error (General):', error);
+      throw error;
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Email send failed:', err);
+    throw err;
+  }
 }

@@ -1,42 +1,37 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
 export async function GET() {
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
   const envStatus = {
-    GMAIL_USER: gmailUser ? `✓ set (${gmailUser})` : '✗ MISSING',
-    GMAIL_APP_PASSWORD: gmailPass ? `✓ set (length: ${gmailPass.length})` : '✗ MISSING',
+    RESEND_API_KEY: apiKey ? `✓ set (length: ${apiKey.length})` : '✗ MISSING',
+    FROM_EMAIL: fromEmail,
   };
 
-  if (!gmailUser || !gmailPass) {
-    return NextResponse.json({ envStatus, result: '✗ Cannot send – env vars missing' });
+  if (!apiKey) {
+    return NextResponse.json({ envStatus, result: '✗ Cannot send – API key missing' });
   }
 
-  // Try sending a real test email to the Gmail account itself
-  let result: string;
+  const resend = new Resend(apiKey);
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user: gmailUser, pass: gmailPass },
+    const { data, error } = await resend.emails.send({
+      from: `Test <${fromEmail}>`,
+      to: fromEmail, // send to self as a test
+      subject: '✅ Resend Test – Working!',
+      html: '<p>This is a test email from your website via Resend. If you see this, emails are working correctly!</p>',
     });
 
-    await transporter.verify(); // checks credentials without sending
-    result = '✓ SMTP credentials valid';
+    if (error) {
+      return NextResponse.json({ envStatus, result: `✗ ERROR: ${error.message}`, error });
+    }
 
-    await transporter.sendMail({
-      from: `Oke Oluwaseun <${gmailUser}>`,
-      to: gmailUser, // send to self as a test
-      subject: '✅ Email Test – Working!',
-      html: '<p>This is a test email from your website. If you see this, emails are working correctly!</p>',
-    });
-    result = '✓ Test email sent to ' + gmailUser;
+    return NextResponse.json({ envStatus, result: '✓ Test email sent successfully', data });
   } catch (err: any) {
-    result = `✗ ERROR: ${err?.message ?? String(err)}`;
+    return NextResponse.json({ envStatus, result: `✗ ERROR: ${err?.message ?? String(err)}` });
   }
-
-  return NextResponse.json({ envStatus, result });
 }
