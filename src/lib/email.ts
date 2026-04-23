@@ -79,10 +79,22 @@ function webinarEmailHtml(name: string): string {
                 </tr>
               </table>
 
-              <p style="margin:0 0 32px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;">
+              <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;">
                 The meeting link will be shared in the <strong style="color:#ffffff;">WhatsApp community</strong> closer to the event.
-                Make sure you've joined — check the link sent to you after registering.
+                Join the group now so you don't miss it:
               </p>
+
+              <!-- WhatsApp Button -->
+              <table cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                <tr>
+                  <td style="background:#25D366;border-radius:8px;">
+                    <a href="https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6"
+                       style="display:inline-block;padding:14px 32px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:1px;">
+                      📲 Join WhatsApp Group
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
               <!-- Quote -->
               <table width="100%" cellpadding="0" cellspacing="0" style="border-left:3px solid #C9A84C;margin-bottom:32px;">
@@ -175,6 +187,12 @@ function generalEmailHtml(name: string): string {
                       </td></tr>
                       <tr><td style="padding:10px 0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;">
                         <span style="color:#C9A84C;font-weight:700;">02 —</span> Join our WhatsApp community to stay connected with the movement.
+                      </td></tr>
+                      <tr><td style="padding:16px 0 10px;">
+                        <a href="https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6"
+                           style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 28px;border-radius:8px;letter-spacing:0.5px;">
+                          📲 Join WhatsApp Group
+                        </a>
                       </td></tr>
                       <tr><td style="padding:10px 0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;">
                         <span style="color:#C9A84C;font-weight:700;">03 —</span> Show up ready to be transformed.
