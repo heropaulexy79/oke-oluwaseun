@@ -35,15 +35,21 @@ export async function POST(request: Request) {
     console.log('New General Registration Received:', registrationData);
 
     // Save to Firestore
+    let docId = '';
     try {
       const db = getDb();
-      await db.collection('registrations').add(registrationData);
-      console.log('Successfully saved to Firestore');
-    } catch (dbError) {
+      const docRef = await db.collection('maximize_registrations').add(registrationData);
+      docId = docRef.id;
+      console.log('Successfully saved to Firestore. Doc ID:', docId);
+    } catch (dbError: any) {
       console.error('Firestore Error:', dbError);
+      return NextResponse.json(
+        { error: 'Database error', details: dbError.message },
+        { status: 500 }
+      );
     }
 
-    // Send confirmation email (non-blocking — don't fail the request if email fails)
+    // Send confirmation email (non-blocking)
     try {
       await sendGeneralConfirmation(email, name);
       console.log('Confirmation email sent to:', email);
@@ -52,7 +58,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { message: 'Registration successful' },
+      { message: 'Registration successful', registrationId: docId },
       { status: 200 }
     );
   } catch (error) {

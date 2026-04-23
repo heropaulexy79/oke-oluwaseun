@@ -1,6 +1,19 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend: Resend | null = null;
+
+function getResend() {
+  if (!resend) {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.warn('RESEND_API_KEY is missing. Emails will not be sent.');
+      return null;
+    }
+    resend = new Resend(apiKey);
+  }
+  return resend;
+}
+
 const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 const FROM_NAME = 'Oke Oluwaseun';
 const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
@@ -9,7 +22,10 @@ const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
 
 export async function sendWebinarConfirmation(to: string, name: string) {
   try {
-    const { data, error } = await resend.emails.send({
+    const resendClient = getResend();
+    if (!resendClient) return;
+
+    const { data, error } = await resendClient.emails.send({
       from: FROM,
       to,
       subject: "✅ You're Registered — Identity Crisis Webinar",
@@ -235,7 +251,10 @@ function generalEmailHtml(name: string): string {
 
 export async function sendGeneralConfirmation(to: string, name: string) {
   try {
-    const { data, error } = await resend.emails.send({
+    const resendClient = getResend();
+    if (!resendClient) return;
+
+    const { data, error } = await resendClient.emails.send({
       from: FROM,
       to,
       subject: '✅ Registration Confirmed — Maximize Nation',
