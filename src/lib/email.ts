@@ -42,7 +42,7 @@ function webinarEmailHtml(name: string): string {
           <tr>
             <td style="background:linear-gradient(135deg,#0A1229 0%,#0D1A3A 100%);border-radius:16px 16px 0 0;padding:40px 48px 32px;border-bottom:2px solid #C9A84C;">
               <img src="https://okeoluwaseun.vercel.app/full%20main%20logo%20white.png" alt="Oke Oluwaseun" width="160" style="display:block;margin-bottom:24px;max-width:160px;" />
-              <h1 style="margin:0;font-size:32px;color:#ffffff;line-height:1.2;font-weight:300;font-style:italic;">Identity Crisis<br/><span style="font-weight:700;font-style:normal;">Webinar</span></h1>
+              <h1 style="margin:0;font-size:32px;color:#ffffff;line-height:1.2;font-weight:300;font-style:italic;">Identity Crisis<span style="font-weight:700;font-style:normal;">Webinar</span></h1>
             </td>
           </tr>
 
