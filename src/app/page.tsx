@@ -88,7 +88,7 @@ export default async function Home() {
       <section className="py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image 
-            src="/maximize-conference-2025.png" 
+            src="/max conference.JPG" 
             alt="Maximize Nation Background" 
             fill 
             className="object-cover"
@@ -117,12 +117,12 @@ export default async function Home() {
             
             <div className="grid grid-cols-2 gap-4 h-[400px]">
               <AnimatedSection delay={0.2} className="relative rounded-2xl overflow-hidden mt-12">
-                <Image src="/maximize-conference-2025.png" alt="Maximize Conference" fill className="object-cover" />
+                <Image src="/maximize-conference1.JPG" alt="Maximize Conference" fill className="object-cover" />
                 <div className="absolute inset-0 bg-primary/20" />
                 <div className="absolute bottom-4 left-4 text-white text-[10px] uppercase tracking-widest font-bold">Conference</div>
               </AnimatedSection>
               <AnimatedSection delay={0.4} className="relative rounded-2xl overflow-hidden mb-12">
-                <Image src="/maximize-campus-tour-2025.png" alt="Campus Tour" fill className="object-cover" />
+                <Image src="/campus tour1.jpg" alt="Campus Tour" fill className="object-cover" />
                 <div className="absolute inset-0 bg-primary/20" />
                 <div className="absolute bottom-4 left-4 text-white text-[10px] uppercase tracking-widest font-bold">Campus Tour</div>
               </AnimatedSection>

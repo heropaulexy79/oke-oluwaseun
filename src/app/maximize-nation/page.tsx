@@ -12,7 +12,7 @@ export default function MaximizeNationPage() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-primary/70 z-10" />
           <Image
-            src="/maximize-conference-2025.png"
+            src="/max conference.JPG"
             alt="Maximize Nation"
             fill
             className="object-cover opacity-40 scale-105 animate-pulse-slow"
@@ -104,7 +104,7 @@ export default function MaximizeNationPage() {
                 <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-accent z-10" />
                 <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-accent z-10" />
                 <Image
-                  src="/maximize-conference-2025.png"
+                  src="/maximize-conference1.JPG"
                   alt="Maximize Conference 2025"
                   fill
                   className="object-cover"
@@ -168,7 +168,7 @@ export default function MaximizeNationPage() {
             <div className="lg:w-1/2 relative">
               <AnimatedSection className="relative aspect-video lg:aspect-square">
                 <Image
-                  src="/maximize-campus-tour-2025.png"
+                  src="/campus tour1.jpg"
                   alt="Maximize Campus Tour 2025"
                   fill
                   className="object-cover"
@@ -203,11 +203,11 @@ export default function MaximizeNationPage() {
               <div className="flex flex-wrap justify-center gap-8 mb-12">
                 <div className="flex items-center gap-3 text-white/80">
                   <Calendar className="text-accent" size={24} />
-                  <span>August 2026</span>
+                  <span>27th June, 2026</span>
                 </div>
                 <div className="flex items-center gap-3 text-white/80">
                   <MapPin className="text-accent" size={24} />
-                  <span>Main Arena, Lagos</span>
+                  <span>Eridan Space, Ikeja</span>
                 </div>
               </div>
             </AnimatedSection>
