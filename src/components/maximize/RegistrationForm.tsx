@@ -35,7 +35,7 @@ export default function RegistrationForm() {
       if (response.ok) {
         const data = await response.json();
         setStatus("success");
-        setMessage(`Thank you! Your registration (ID: ${data.registrationId}) has been received.`);
+        setMessage(`Thank you! Your registration for Maximize Conference 2026 has been received.`);
         setFormData({
           name: "",
           phone: "",
