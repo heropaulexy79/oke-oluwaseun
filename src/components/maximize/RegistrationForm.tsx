@@ -44,6 +44,11 @@ export default function RegistrationForm() {
           referral: "",
           expectations: "",
         });
+        
+        // Redirect to WhatsApp
+        setTimeout(() => {
+          window.location.href = "https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6";
+        }, 2000);
       } else {
         const errorData = await response.json();
         throw new Error(errorData.details || errorData.error || "Failed to register. Please try again.");
@@ -60,12 +65,21 @@ export default function RegistrationForm() {
         <CheckCircle2 className="mx-auto text-accent mb-6" size={64} />
         <h3 className="text-3xl font-serif text-white mb-4">Registration Successful!</h3>
         <p className="text-white/70 mb-8 max-w-md mx-auto">{message}</p>
-        <button
-          onClick={() => setStatus("idle")}
-          className="text-accent border border-accent/30 px-8 py-3 hover:bg-accent hover:text-primary transition-all font-medium"
-        >
-          Register Another Person
-        </button>
+        <p className="text-accent font-medium animate-pulse mb-8">Redirecting you to the WhatsApp group...</p>
+        <div className="flex flex-col gap-4 items-center">
+          <a 
+            href="https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6"
+            className="text-accent border border-accent/30 px-8 py-3 hover:bg-accent hover:text-primary transition-all font-medium"
+          >
+            Join WhatsApp Now
+          </a>
+          <button
+            onClick={() => setStatus("idle")}
+            className="text-white/40 text-sm hover:text-white transition-colors"
+          >
+            Register Another Person
+          </button>
+        </div>
       </div>
     );
   }
