@@ -26,10 +26,18 @@ export default function RegistrationForm() {
     setStatus("loading");
 
     try {
+      // Stripping extra fields for testing
+      const testData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        expectations: formData.expectations,
+      };
+
       const response = await fetch("/api/webinar-register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(testData),
       });
 
       if (response.ok) {
