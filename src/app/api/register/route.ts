@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       expectations: expectations || 'N/A',
       timestamp: new Date().toISOString(),
       dateString: new Date().toLocaleString('en-GB', { timeZone: 'Africa/Lagos' }),
-      source: 'General Registration',
+      source: 'Maximize Conference 2026',
     };
 
     // Log for debugging

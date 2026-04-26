@@ -177,35 +177,45 @@ function generalEmailHtml(name: string): string {
           <!-- Body -->
           <tr>
             <td style="background:#0A1229;padding:40px 48px;">
-              <p style="margin:0 0 8px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">Welcome to the Movement</p>
-              <h2 style="margin:0 0 24px;font-size:26px;color:#ffffff;font-weight:400;">Hi ${name}, you're officially registered 🎉</h2>
+              <p style="margin:0 0 8px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">Registration Confirmed</p>
+              <h2 style="margin:0 0 24px;font-size:26px;color:#ffffff;font-weight:400;">Hi ${name}, you're officially registered for the Maximize Conference 2026 🎉</h2>
+              
               <p style="margin:0 0 32px;font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;">
-                Thank you for taking this step. You have joined a growing community of value-driven leaders
-                committed to identity, purpose, and global impact.
+                Thank you for taking this strategic step. It's going to be a great time of transformation, leadership activation, and purpose discovery. 
+                We can't wait to see you there!
               </p>
 
-              <!-- What's Next -->
+              <!-- Event Details -->
               <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;margin-bottom:32px;">
                 <tr>
                   <td style="padding:28px 32px;">
-                    <p style="margin:0 0 20px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">What Happens Next</p>
+                    <p style="margin:0 0 20px;font-size:11px;letter-spacing:3px;color:#C9A84C;font-weight:700;text-transform:uppercase;">Event Details</p>
                     <table cellpadding="0" cellspacing="0">
-                      <tr><td style="padding:10px 0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;">
-                        <span style="color:#C9A84C;font-weight:700;">01 —</span> You'll receive further details via email as the event approaches.
+                      <tr><td style="padding:8px 0;">
+                        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📅 Date</p>
+                        <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">June 27th, 2026</p>
                       </td></tr>
-                      <tr><td style="padding:10px 0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;">
-                        <span style="color:#C9A84C;font-weight:700;">02 —</span> Join our WhatsApp community to stay connected with the movement.
-                      </td></tr>
-                      <tr><td style="padding:16px 0 10px;">
-                        <a href="https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6"
-                           style="display:inline-block;background:#25D366;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:12px 28px;border-radius:8px;letter-spacing:0.5px;">
-                          📲 Join WhatsApp Group
-                        </a>
-                      </td></tr>
-                      <tr><td style="padding:10px 0;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;">
-                        <span style="color:#C9A84C;font-weight:700;">03 —</span> Show up ready to be transformed.
+                      <tr><td style="padding:8px 0;">
+                        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;font-weight:600;">📍 Venue</p>
+                        <p style="margin:4px 0 0;font-size:17px;color:#ffffff;font-weight:500;">Eridan Space, Ikeja</p>
                       </td></tr>
                     </table>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;">
+                Join our WhatsApp community to stay connected and get more updates as the conference approaches:
+              </p>
+
+              <!-- WhatsApp Button -->
+              <table cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+                <tr>
+                  <td style="background:#25D366;border-radius:8px;">
+                    <a href="https://chat.whatsapp.com/EvMIsewHFqmG3RJiSwZZd6"
+                       style="display:inline-block;padding:14px 32px;font-size:15px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:1px;">
+                      📲 Join WhatsApp Group
+                    </a>
                   </td>
                 </tr>
               </table>
