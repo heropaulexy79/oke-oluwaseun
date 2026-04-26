@@ -47,13 +47,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send confirmation email (non-blocking — don't fail the request if email fails)
-    try {
-      await sendWebinarConfirmation(email, name);
-      console.log('Resend confirmation attempted for:', email);
-    } catch (emailError) {
-      console.error('Resend failed (non-fatal):', emailError);
-    }
+    // (Resend is disabled as per user request)
 
     // Backup: Send to Google Sheets Webhook if configured
     const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;

@@ -18,11 +18,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // Prepare data for Firestore
+    // Prepare data for Firestore and Webhook
+    // MATCHING WEBINAR ORDER: name, email, phone...
     const registrationData = {
       name,
-      phone,
       email,
+      phone,
       location,
       referral: referral || 'N/A',
       expectations: expectations || 'N/A',
@@ -49,13 +50,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send confirmation email (non-blocking)
-    try {
-      await sendGeneralConfirmation(email, name);
-      console.log('Resend confirmation attempted for:', email);
-    } catch (emailError) {
-      console.error('Resend failed (non-fatal):', emailError);
-    }
+    // (Resend is disabled as per user request)
 
     // Backup: Send to Google Sheets Webhook if configured (User uses this for Gmail emails)
     const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
