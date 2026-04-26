@@ -19,17 +19,17 @@ export async function POST(request: Request) {
     }
 
     // Prepare data for Firestore and Webhook
-    // MATCHING WEBINAR ORDER: name, email, phone...
+    // MATCHING WEBINAR FORMAT EXACTLY FOR TESTING
     const registrationData = {
       name,
       email,
       phone,
-      location,
-      referral: referral || 'N/A',
       expectations: expectations || 'N/A',
+      location, // Extra field
+      referral: referral || 'N/A', // Extra field
       timestamp: new Date().toISOString(),
       dateString: new Date().toLocaleString('en-GB', { timeZone: 'Africa/Lagos' }),
-      source: 'Maximize Conference 2026',
+      source: 'Identity Crisis Webinar', // TEMP: Match webinar source
     };
 
     // Log for debugging
