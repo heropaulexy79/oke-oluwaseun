@@ -47,7 +47,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // (Resend is disabled as per user request)
+    // Send confirmation email (non-blocking)
+    try {
+      await sendWebinarConfirmation(email, name);
+      console.log('Nodemailer confirmation sent to:', email);
+    } catch (emailError) {
+      console.error('Nodemailer failed (non-fatal):', emailError);
+    }
 
     // Backup: Send to Google Sheets Webhook if configured
     const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;

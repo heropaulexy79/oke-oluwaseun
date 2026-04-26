@@ -19,17 +19,16 @@ export async function POST(request: Request) {
     }
 
     // Prepare data for Firestore and Webhook
-    // MATCHING WEBINAR FORMAT EXACTLY FOR TESTING
     const registrationData = {
       name,
       email,
       phone,
+      location,
+      referral: referral || 'N/A',
       expectations: expectations || 'N/A',
-      location, // Extra field
-      referral: referral || 'N/A', // Extra field
       timestamp: new Date().toISOString(),
       dateString: new Date().toLocaleString('en-GB', { timeZone: 'Africa/Lagos' }),
-      source: 'Identity Crisis Webinar', // TEMP: Match webinar source
+      source: 'Maximize Conference 2026',
     };
 
     // Log for debugging
@@ -50,7 +49,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // (Resend is disabled as per user request)
+    // Send confirmation email (non-blocking)
+    try {
+      await sendGeneralConfirmation(email, name);
+      console.log('Nodemailer confirmation sent to:', email);
+    } catch (emailError) {
+      console.error('Nodemailer failed (non-fatal):', emailError);
+    }
 
     // Backup: Send to Google Sheets Webhook if configured (User uses this for Gmail emails)
     const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;

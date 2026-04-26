@@ -1,45 +1,50 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
+import type { Transporter } from 'nodemailer';
 
-let resend: Resend | null = null;
+let transporter: Transporter | null = null;
 
-function getResend() {
-  if (!resend) {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      console.warn('[Resend] RESEND_API_KEY is missing. Skipping Resend email. (Using webhook backup if configured)');
+function getTransporter() {
+  if (!transporter) {
+    const user = process.env.EMAIL_USER;
+    const pass = process.env.EMAIL_PASS;
+
+    if (!user || !pass) {
+      console.warn('[Nodemailer] EMAIL_USER or EMAIL_PASS is missing. Emails will not be sent.');
       return null;
     }
-    resend = new Resend(apiKey);
+
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user,
+        pass,
+      },
+    });
   }
-  return resend;
+  return transporter;
 }
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 const FROM_NAME = 'Oke Oluwaseun';
-const FROM = `${FROM_NAME} <${FROM_EMAIL}>`;
+const FROM_EMAIL = process.env.EMAIL_USER; // Default to the Gmail user
 
 // ─── Webinar Confirmation ──────────────────────────────────────────────────
 
 export async function sendWebinarConfirmation(to: string, name: string) {
   try {
-    const resendClient = getResend();
-    if (!resendClient) return;
+    const mailClient = getTransporter();
+    if (!mailClient) return;
 
-    const { data, error } = await resendClient.emails.send({
-      from: FROM,
+    await mailClient.sendMail({
+      from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
       to,
       subject: "✅ You're Registered — Identity Crisis Webinar",
       html: webinarEmailHtml(name),
     });
 
-    if (error) {
-      console.error('Resend Error (Webinar):', error);
-      throw error;
-    }
-
-    return data;
+    console.log('Nodemailer confirmation sent (Webinar) to:', to);
+    return { success: true };
   } catch (err) {
-    console.error('Email send failed:', err);
+    console.error('Nodemailer (Webinar) failed:', err);
     throw err;
   }
 }
@@ -261,24 +266,20 @@ function generalEmailHtml(name: string): string {
 
 export async function sendGeneralConfirmation(to: string, name: string) {
   try {
-    const resendClient = getResend();
-    if (!resendClient) return;
+    const mailClient = getTransporter();
+    if (!mailClient) return;
 
-    const { data, error } = await resendClient.emails.send({
-      from: FROM,
+    await mailClient.sendMail({
+      from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
       to,
       subject: '✅ Registration Confirmed — Maximize Nation',
       html: generalEmailHtml(name),
     });
 
-    if (error) {
-      console.error('Resend Error (General):', error);
-      throw error;
-    }
-
-    return data;
+    console.log('Nodemailer confirmation sent (General) to:', to);
+    return { success: true };
   } catch (err) {
-    console.error('Email send failed:', err);
+    console.error('Nodemailer (General) failed:', err);
     throw err;
   }
 }
