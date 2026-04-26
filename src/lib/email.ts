@@ -6,7 +6,7 @@ function getResend() {
   if (!resend) {
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
-      console.warn('RESEND_API_KEY is missing. Emails will not be sent.');
+      console.warn('[Resend] RESEND_API_KEY is missing. Skipping Resend email. (Using webhook backup if configured)');
       return null;
     }
     resend = new Resend(apiKey);

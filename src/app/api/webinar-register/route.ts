@@ -50,9 +50,9 @@ export async function POST(request: Request) {
     // Send confirmation email (non-blocking — don't fail the request if email fails)
     try {
       await sendWebinarConfirmation(email, name);
-      console.log('Confirmation email sent to:', email);
+      console.log('Resend confirmation attempted for:', email);
     } catch (emailError) {
-      console.error('Email send failed (non-fatal):', emailError);
+      console.error('Resend failed (non-fatal):', emailError);
     }
 
     // Backup: Send to Google Sheets Webhook if configured
@@ -64,9 +64,12 @@ export async function POST(request: Request) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(registrationData),
         });
+        console.log('Webhook backup triggered successfully for:', email);
       } catch (webhookError) {
         console.error('Failed to send to webhook backup:', webhookError);
       }
+    } else {
+      console.warn('GOOGLE_SHEETS_WEBHOOK_URL is not set. Backup email will not be sent.');
     }
 
     return NextResponse.json(

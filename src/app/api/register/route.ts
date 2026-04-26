@@ -52,9 +52,26 @@ export async function POST(request: Request) {
     // Send confirmation email (non-blocking)
     try {
       await sendGeneralConfirmation(email, name);
-      console.log('Confirmation email sent to:', email);
+      console.log('Resend confirmation attempted for:', email);
     } catch (emailError) {
-      console.error('Email send failed (non-fatal):', emailError);
+      console.error('Resend failed (non-fatal):', emailError);
+    }
+
+    // Backup: Send to Google Sheets Webhook if configured (User uses this for Gmail emails)
+    const WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+    if (WEBHOOK_URL) {
+      try {
+        await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(registrationData),
+        });
+        console.log('Webhook backup triggered successfully for:', email);
+      } catch (webhookError) {
+        console.error('Failed to send to webhook backup:', webhookError);
+      }
+    } else {
+      console.warn('GOOGLE_SHEETS_WEBHOOK_URL is not set. Backup email will not be sent.');
     }
 
     return NextResponse.json(
