@@ -26,7 +26,7 @@ export default function RegistrationForm() {
     setStatus("loading");
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/webinar-register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
