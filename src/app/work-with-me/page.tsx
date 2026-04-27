@@ -36,8 +36,8 @@ export default function WorkWithMePage() {
                 <li className="flex items-start"><CheckCircle2 className="text-accent mr-3 min-w-5" size={20} /> <span className="text-sm">Leadership capacity expansion</span></li>
                 <li className="flex items-start"><CheckCircle2 className="text-accent mr-3 min-w-5" size={20} /> <span className="text-sm">Strategic blind-spot illumination</span></li>
               </ul>
-              <Link href="/contact?subject=Executive%20Coaching" className="inline-flex items-center text-primary font-semibold hover:text-accent transition">
-                Apply for Coaching <ArrowRight size={16} className="ml-2" />
+              <Link href="/book" className="inline-flex items-center text-primary font-semibold hover:text-accent transition">
+                Book a Session <ArrowRight size={16} className="ml-2" />
               </Link>
             </AnimatedSection>
 

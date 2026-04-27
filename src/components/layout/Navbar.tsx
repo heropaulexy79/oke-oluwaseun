@@ -25,6 +25,7 @@ export default function Navbar() {
     { name: "Work With Me", path: "/work-with-me" },
     { name: "Speaking", path: "/speaking" },
     { name: "Insights", path: "/insights" },
+    { name: "Book", path: "/book" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -39,6 +40,7 @@ export default function Navbar() {
     pathname === "/work-with-me" || 
     pathname === "/speaking" || 
     pathname === "/about" ||
+    pathname === "/book" ||
     pathname === "/contact"
   );
 
