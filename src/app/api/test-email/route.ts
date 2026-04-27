@@ -1,37 +1,41 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { sendGeneralConfirmation } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
-export async function GET() {
-  const apiKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const testEmail = searchParams.get('email') || process.env.EMAIL_USER;
 
   const envStatus = {
-    RESEND_API_KEY: apiKey ? `✓ set (length: ${apiKey.length})` : '✗ MISSING',
-    FROM_EMAIL: fromEmail,
+    EMAIL_USER: process.env.EMAIL_USER ? `✓ set` : '✗ MISSING',
+    EMAIL_PASS: process.env.EMAIL_PASS ? `✓ set` : '✗ MISSING',
   };
 
-  if (!apiKey) {
-    return NextResponse.json({ envStatus, result: '✗ Cannot send – API key missing' });
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return NextResponse.json({ 
+      envStatus, 
+      result: '✗ Cannot send – Environment variables missing' 
+    });
   }
 
-  const resend = new Resend(apiKey);
+  if (!testEmail) {
+    return NextResponse.json({ 
+      envStatus, 
+      result: '✗ No recipient email provided. Use ?email=your@email.com' 
+    });
+  }
 
   try {
-    const { data, error } = await resend.emails.send({
-      from: `Test <${fromEmail}>`,
-      to: fromEmail, // send to self as a test
-      subject: '✅ Resend Test – Working!',
-      html: '<p>This is a test email from your website via Resend. If you see this, emails are working correctly!</p>',
+    await sendGeneralConfirmation(testEmail, 'Test User');
+    return NextResponse.json({ 
+      envStatus, 
+      result: '✓ Test email sent successfully to ' + testEmail 
     });
-
-    if (error) {
-      return NextResponse.json({ envStatus, result: `✗ ERROR: ${error.message}`, error });
-    }
-
-    return NextResponse.json({ envStatus, result: '✓ Test email sent successfully', data });
   } catch (err: any) {
-    return NextResponse.json({ envStatus, result: `✗ ERROR: ${err?.message ?? String(err)}` });
+    return NextResponse.json({ 
+      envStatus, 
+      result: `✗ ERROR: ${err?.message ?? String(err)}` 
+    });
   }
 }
