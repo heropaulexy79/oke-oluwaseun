@@ -204,11 +204,11 @@ export default async function Home() {
               <h2 className="text-3xl md:text-5xl font-serif text-white mb-6">Ready to Accelerate Your Impact?</h2>
               <p className="text-lg text-white/70 mb-10">Whether you are an individual pursuing greatness or an organization aiming for legacy, the time to build is now.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link href="/book" className="bg-accent text-primary px-8 py-4 font-bold uppercase tracking-widest hover:bg-white transition-all">
-                  Book a Session
+                <Link href="/work-with-me" className="bg-accent text-primary px-8 py-4 font-medium hover:bg-accent-light transition">
+                  Work With Me
                 </Link>
-                <Link href="/work-with-me" className="bg-transparent border border-white/30 text-white px-8 py-4 hover:border-white transition font-bold uppercase tracking-widest">
-                  Partner with Me
+                <Link href="/contact" className="bg-transparent border border-white/30 text-white px-8 py-4 hover:border-white transition">
+                  Book for Speaking
                 </Link>
               </div>
             </AnimatedSection>
