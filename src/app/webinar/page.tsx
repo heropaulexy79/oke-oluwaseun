@@ -20,7 +20,7 @@ export default function WebinarPage() {
                 OKE <span className="text-accent italic font-bold">OLUWASEUN</span>
             </div>
             <div className="hidden md:block text-[10px] uppercase tracking-[0.3em] text-white/50">
-                Leadership • Purpose • Impact
+                Leadership • Identity • Impact
             </div>
         </header>
 
